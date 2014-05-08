@@ -1,1 +1,14 @@
 include ':dependencies:gimmie'
+
+include ':dependencies:actionbarsherlock'
+project(':dependencies:actionbarsherlock').projectDir = new File('dependencies/gimmie/dependencies/actionbarsherlock')
+
+include ':dependencies:viewpager'
+project(':dependencies:viewpager').projectDir = new File('dependencies/gimmie/dependencies/viewpager')
+
+include ':dependencies:google-play-services_lib'
+project(':dependencies:google-play-services_lib').projectDir = new File('dependencies/gimmie/dependencies/google-play-services_lib')
+
+include ':dependencies:websocket'
+project(':dependencies:websocket').projectDir = new File('dependencies/gimmie/dependencies/websocket')
+
