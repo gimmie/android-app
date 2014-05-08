@@ -1,0 +1,38 @@
+<resources>
+
+    <string name="app_name">Gimmie Demo</string>
+    <string name="header_settings">Demo Settings</string>
+    <string name="header_views">Demo Views</string>
+    <string name="header_actions">Demo Actions</string>
+    <string name="action_login">Login</string>
+    <string name="action_game_settings">Game Settings</string>
+    <string name="action_event_settings">Event Settings</string>
+    <string name="action_open_gimmie_view">Gimmie View</string>
+    <string name="action_open_reward_catalog">Reward Catalog</string>
+    <string name="action_open_profile">Profile</string>
+    <string name="action_open_leaderboard">Leaderboard</string>
+    <string name="action_trigger_normal_event">Trigger normal event</string>
+    <string name="action_trigger_instant_win_event">Trigger instant reward</string>
+    <string name="action_checkin">Checkin</string>
+    <string name="action_change_language">Change language</string>
+    <string name="view_login_title">Login</string>
+    <string name="view_login_username">Username</string>
+    <string name="view_change_language_title">Change language</string>
+    <string name="view_checkin_title">Checkin Place</string>
+    <string name="view_checkin_place">Place</string>
+    <string name="view_checkin_confirm">Checkin</string>
+    <string name="view_settings_key">Game key</string>
+    <string name="view_settings_secret">Game secret</string>
+    <string name="view_settings_server">https://api.gimmieworld.com/1/</string>
+    <string name="view_settings_country">Game Country</string>
+    <string name="view_settings_normal_event">Normal event name</string>
+    <string name="view_settings_instant_win_event">Instant win event name</string>
+    <string name="view_settings_checkin_id">Checkin id from the portal</string>
+    <string name="view_dialog_ok">Ok</string>
+    <string name="view_dialog_cancel">Cancel</string>
+    <string name="locker_passcode">Gimmie Passcode</string>
+    <string name="locker_button">Unlock</string>
+    <string name="app_version">Version</string>
+    <string name="error_wrong_passcode">Wrong passcode</string>
+
+</resources>

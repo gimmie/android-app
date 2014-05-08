@@ -1,0 +1,38 @@
+<resources>
+
+    <string name="app_name">Internal Testing</string>
+    <string name="header_settings">デモ設定</string>
+    <string name="header_views">デモビュー</string>
+    <string name="header_actions">デモアクション</string>
+    <string name="action_login">ログイン</string>
+    <string name="action_game_settings">ゲーム設定</string>
+    <string name="action_event_settings">イベント設定</string>
+    <string name="action_open_gimmie_view">Gimmieビュー</string>
+    <string name="action_open_reward_catalog">リワードカタログ</string>
+    <string name="action_open_profile">プロフィール</string>
+    <string name="action_open_leaderboard">リーダボード</string>
+    <string name="action_trigger_normal_event">通常イベントをトリガーする</string>
+    <string name="action_trigger_instant_win_event">インスタントリワードをトリガーする</string>
+    <string name="action_checkin">チェックイン</string>
+    <string name="action_change_language">言語選択</string>
+    <string name="view_login_title">ログイン</string>
+    <string name="view_login_username">ユーザーネーム</string>
+    <string name="view_change_language_title">言語選択</string>
+    <string name="view_checkin_title">チェックイン場所</string>
+    <string name="view_checkin_place">場所</string>
+    <string name="view_checkin_confirm">チェックイン</string>
+    <string name="view_settings_key">ゲームキー</string>
+    <string name="view_settings_secret">ゲームシークレット</string>
+    <string name="view_settings_server">https://api.gimmieworld.com/1/</string>
+    <string name="view_settings_country">Game Country</string>
+    <string name="view_settings_normal_event">通常イベント名</string>
+    <string name="view_settings_instant_win_event">インスタント報酬イベント</string>
+    <string name="view_settings_checkin_id">ポータルからのチェックインID</string>
+    <string name="view_dialog_ok">Ok</string>
+    <string name="view_dialog_cancel">キャンセル</string>
+    <string name="locker_passcode">Gimmie Passcode</string>
+    <string name="locker_button">Unlock</string>
+    <string name="app_version">Version</string>
+    <string name="error_wrong_passcode">Wrong passcode</string>
+
+</resources>

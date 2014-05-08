@@ -1,0 +1,38 @@
+<resources>
+
+    <string name="app_name">Internal Testing</string>
+    <string name="header_settings">ส่วนตั้งค่า Demo</string>
+    <string name="header_views">หน้าต่างๆใน Demo</string>
+    <string name="header_actions">การกระทำต่างๆใน Demo</string>
+    <string name="action_login">เข้าสู่ระบบ</string>
+    <string name="action_game_settings">ตั้งค่าเกม</string>
+    <string name="action_event_settings">ตั้งค่าเหตุการณ์</string>
+    <string name="action_open_gimmie_view">หน้าหลัก</string>
+    <string name="action_open_reward_catalog">รายการสินค้า</string>
+    <string name="action_open_profile">ข้อมูลส่วนตัว</string>
+    <string name="action_open_leaderboard">ตารางผู้นำ</string>
+    <string name="action_trigger_normal_event">ทดสอบเรียกเหตุการณ์ปกติ</string>
+    <string name="action_trigger_instant_win_event">ทดสอบเรียกเหตุการณ์ที่ได้รางวัลทันที</string>
+    <string name="action_checkin">เช็คอิน</string>
+    <string name="action_change_language">เปลี่ยนภาษา</string>
+    <string name="view_login_title">เข้าสู่ระบบ</string>
+    <string name="view_login_username">ชื่อผู้ใช้</string>
+    <string name="view_change_language_title">เปลี่ยนภาษา</string>
+    <string name="view_checkin_title">สถานที่เช็คอิน</string>
+    <string name="view_checkin_place">สถานที่</string>
+    <string name="view_checkin_confirm">เช็คอิน</string>
+    <string name="view_settings_key">Game key</string>
+    <string name="view_settings_secret">Game secret</string>
+    <string name="view_settings_server">https://api.gimmieworld.com/1/</string>
+    <string name="view_settings_country">Game Country</string>
+    <string name="view_settings_normal_event">ชื่อ event ปกติ</string>
+    <string name="view_settings_instant_win_event">ชื่อ event ที่ให้รางวัลทันที</string>
+    <string name="view_settings_checkin_id">เช็คอิน id จาก portal</string>
+    <string name="view_dialog_ok">ตกลง</string>
+    <string name="view_dialog_cancel">ยกเลิก</string>
+    <string name="locker_passcode">รหัสผ่าน</string>
+    <string name="locker_button">ถอดรหัส</string>
+    <string name="app_version">รุ่น</string>
+    <string name="error_wrong_passcode">รหัสผิด</string>
+
+</resources>
