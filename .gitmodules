@@ -1,0 +1,3 @@
+[submodule "dependencies/gimmie"]
+	path = dependencies/gimmie
+	url = git@github.com:gimmieworld/GimmieAndroid.git
