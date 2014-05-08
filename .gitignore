@@ -4,11 +4,14 @@
 
 *.class
 *.iml
-lint.xml
 
 local.properties
 
 .gradle/
+gradle/
+gradlew
+gradlew.bat
+
 gen/
 build/
 bin/
