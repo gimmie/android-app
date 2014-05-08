@@ -10,19 +10,12 @@ buildscript {
 
 apply plugin: 'android'
 dependencies {
-  compile project(':dependencies:actionbarsherlock')
-  compile project(':dependencies:viewpager')
-  compile project(':dependencies:google-play-services_lib')
-  compile project(':dependencies:websocket')
+  compile project(':dependencies:gimmie')
 }
 
 android {
   compileSdkVersion 19
   buildToolsVersion "19.0.3"
-
-  dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
-  }
 
   lintOptions {
     checkReleaseBuilds false
