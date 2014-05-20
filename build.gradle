@@ -32,4 +32,4 @@ android {
 
 }
 
-
+defaultTasks 'build'
