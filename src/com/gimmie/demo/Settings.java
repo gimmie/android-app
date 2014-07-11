@@ -10,6 +10,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 
 import com.gimmie.Configuration;
 import com.gimmie.Gimmie;
+import com.gimmie.GimmieComponents;
 
 public class Settings {
 
@@ -35,7 +36,7 @@ public class Settings {
   public Settings(Activity activity) {
     mActivity = activity;
     mSharedPreference = activity.getPreferences(Context.MODE_PRIVATE);
-    mGimmie = Gimmie.getInstance(activity);
+    mGimmie = GimmieComponents.getInstance(activity).getGimmie();
     mConfiguration = mGimmie.getConfiguration();
 
     load();
@@ -141,7 +142,7 @@ public class Settings {
     mGimmieURL = mSharedPreference.getString(Configuration.API_URL,
         mConfiguration.getURL());
     mGimmieCountry = mSharedPreference.getString(Configuration.DATA_COUNTRY,
-        mConfiguration.getDefaultCountry());
+        mConfiguration.getCountry());
 
     mConfiguration.setKey(mGimmieKey);
     mConfiguration.setSecret(mGimmieSecret);

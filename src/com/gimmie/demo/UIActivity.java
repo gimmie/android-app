@@ -33,6 +33,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.gimmie.BaseResult;
 import com.gimmie.CombineResponse;
 import com.gimmie.Gimmie;
+import com.gimmie.GimmieComponents;
 import com.gimmie.RemoteCollection;
 import com.gimmie.model.Checkin;
 import com.gimmie.model.Event;
@@ -44,6 +45,7 @@ public class UIActivity extends SherlockActivity {
   private static final int PAGE_MAIN = 1;
 
   private List<Menu> mMenus = null;
+  private GimmieComponents mComponents;
   private Gimmie mGimmie;
   private Settings mSettings;
   private BaseAdapter mAdapter;
@@ -62,8 +64,10 @@ public class UIActivity extends SherlockActivity {
     super.onCreate(savedInstanceState);
     
     mSettings = new Settings(this);
-    mGimmie = Gimmie.getInstance(this);
-    mGimmie.registerForPushNotification(this);
+    mComponents = GimmieComponents.getInstance(this);
+    mComponents.registerForPushNotification(this);
+
+    mGimmie = mComponents.getGimmie();
     mGimmie.login("test2", "test2",
         "test@gimmieworld.com");
 
@@ -109,7 +113,7 @@ public class UIActivity extends SherlockActivity {
     mCheckinMenu = new Menu(getString(R.string.action_checkin),
         Menu.TYPE_ACTION, new CheckinAction(mSettings));
 
-    LoginAction loginAction = new LoginAction(this, mSettings, mGimmie);
+    LoginAction loginAction = new LoginAction(this, mSettings, mComponents);
     mLoginMenu = new Menu(getString(R.string.action_login) + " ("
         + mSettings.getDefaultUsername() + ")", Menu.TYPE_ACTION, loginAction);
     loginAction.setLoginMenu(mLoginMenu);
@@ -122,8 +126,7 @@ public class UIActivity extends SherlockActivity {
         new Menu(getString(R.string.action_open_gimmie_view), Menu.TYPE_ACTION,
             new ListAction() {
               public void execute(Activity activity) {
-                Gimmie gimmie = Gimmie.getInstance(activity);
-                gimmie.getGimmieComponents().showRewardCatalogue();
+                mComponents.showRewardCatalogue();
               }
             }),
         // Open Catalog
@@ -132,8 +135,7 @@ public class UIActivity extends SherlockActivity {
 
               @Override
               public void execute(Activity activity) {
-                Gimmie gimmie = Gimmie.getInstance(activity);
-                gimmie.getGimmieComponents().showRewardCatalogueOnly();
+                mComponents.showRewardCatalogueOnly();
               }
 
             }),
@@ -143,8 +145,7 @@ public class UIActivity extends SherlockActivity {
 
               @Override
               public void execute(Activity activity) {
-                Gimmie gimmie = Gimmie.getInstance(activity);
-                gimmie.getGimmieComponents().showProfileOnly();
+                mComponents.showProfileOnly();
               }
 
             }),
@@ -154,8 +155,7 @@ public class UIActivity extends SherlockActivity {
 
               @Override
               public void execute(Activity activity) {
-                Gimmie gimmie = Gimmie.getInstance(activity);
-                gimmie.getGimmieComponents().showLeaderboardOnly();
+                mComponents.showLeaderboardOnly();
               }
 
             }),
@@ -277,21 +277,25 @@ public class UIActivity extends SherlockActivity {
     if (mPage == PAGE_MAIN) {
       Log.d(Gimmie.LOG_TAG, "Re-register notification");
       Log.d(Gimmie.LOG_TAG, "Activity: " + this);
+
       // Re-register notification when screen is rotated.
-      Gimmie.getInstance().updateContext(this);
-      mSettings.setGimmie(mGimmie);
+      mComponents = GimmieComponents.getInstance(this);
+      mGimmie = mComponents.getGimmie();
       mSettings.load();
 
-      mGimmie.loadEvents(new Handler(),
-          new BaseResult<RemoteCollection<Event>>() {
+      final Handler handler = new Handler();
+      mGimmie.loadEvents(new BaseResult<RemoteCollection<Event>>() {
+        @Override
+        public void getResult(final RemoteCollection<Event> result) {
 
+          handler.post(new Runnable() {
             @Override
-            public void getResult(RemoteCollection<Event> result) {
+            public void run() {
               Event[] events = result.getCollection();
               List<Menu> menus = new ArrayList<Menu>(events.length);
               for (Event event : events) {
                 Menu menu = new Menu(event.getName(), Menu.TYPE_ACTION,
-                    new EventAction(event.getName()));
+                        new EventAction(event.getName()));
                 menus.add(menu);
               }
 
@@ -308,10 +312,12 @@ public class UIActivity extends SherlockActivity {
                 mMenus.addAll(eventHeaderIndex + 1, menus);
                 mAdapter.notifyDataSetChanged();
               }
-
             }
-
           });
+
+        }
+      });
+
     }
 
   }
@@ -326,8 +332,7 @@ public class UIActivity extends SherlockActivity {
 
     @Override
     public void execute(Activity activity) {
-      Gimmie gimmie = Gimmie.getInstance();
-      gimmie.trigger(mEventName);
+      GimmieComponents.getInstance(activity).triggerEvent(mEventName);
     }
 
   }
@@ -339,11 +344,13 @@ public class UIActivity extends SherlockActivity {
     private Menu mLoginMenu;
     private BaseAdapter mAdapter;
     private final Gimmie mGimmie;
+    private final GimmieComponents mComponents;
 
-    public LoginAction(Activity activity, Settings settings, Gimmie gimmie) {
+    public LoginAction(Activity activity, Settings settings, GimmieComponents components) {
       mActivity = activity;
       mSettings = settings;
-      mGimmie = gimmie;
+      mComponents = components;
+      mGimmie = components.getGimmie();
     }
 
     public void setLoginMenu(Menu loginMenu) {
@@ -387,11 +394,11 @@ public class UIActivity extends SherlockActivity {
                     if (oldUsername.startsWith("guest:")) {
                       Log.d(Gimmie.LOG_TAG, String.format("Guest user: %s", oldUsername));
                       mGimmie.login(username);
-                      mGimmie.transferDataFromGuestID(null, oldUsername, null);
+                      mGimmie.transferDataFromGuestID(oldUsername);
 
                     }
                     //link new user with device notification reg_id
-                    mGimmie.registerForPushNotification(activity);
+                    mComponents.registerForPushNotification(activity);
                   }
 
                 }
@@ -560,24 +567,26 @@ public class UIActivity extends SherlockActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                  Gimmie gimmie = Gimmie.getInstance(activity);
-                  gimmie.checkin(new Handler(activity.getMainLooper()),
-                      mSettings.getCheckinID(), place.getText().toString(),
-                      new BaseResult<CombineResponse>() {
-
+                  final Handler handler = new Handler(activity.getMainLooper());
+                  Gimmie gimmie = GimmieComponents.getInstance(activity).getGimmie();
+                  gimmie.checkin(mSettings.getCheckinID(), place.getText().toString(), new BaseResult<CombineResponse>() {
+                    @Override
+                    public void getResult(final CombineResponse result) {
+                      handler.post(new Runnable() {
                         @Override
-                        public void getResult(CombineResponse result) {
-
+                        public void run() {
                           User user = result.getSubObject(User.class,
-                              CombineResponse.FIELD_USER);
+                                  CombineResponse.FIELD_USER);
                           Log.v(Gimmie.LOG_TAG, "User: " + user.getUserID());
 
                           Checkin checkin = result.getSubObject(Checkin.class,
-                              CombineResponse.FIELD_CHECK_IN);
+                                  CombineResponse.FIELD_CHECK_IN);
                           Log.v(Gimmie.LOG_TAG, checkin.raw().toString());
-
                         }
                       });
+                    }
+                  });
+
                 }
               })
           .setNegativeButton(activity.getString(R.string.view_dialog_cancel),
